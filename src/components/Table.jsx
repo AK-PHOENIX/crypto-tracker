@@ -23,9 +23,10 @@ export default function CryptoTable() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  const API_BASE = import.meta.env.VITE_API_URL;
   // Fetch data on mount
   useEffect(() => {
-    axios.get("https://crypto-api-xyz.onrender.com/api/crypto")
+    axios.get(`${API_BASE}/api/crypto`)
       .then((res) => setRows(res.data))
       .catch((err) => console.error("Error fetching crypto data", err));
   }, []);

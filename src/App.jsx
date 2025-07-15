@@ -5,9 +5,9 @@ import Navbar from "./components/Navbar";
 
 function App() {
   const [crypto, setCrypto] = useState([]);
-
+  const API_BASE = import.meta.env.VITE_API_URL;
   useEffect(() => {
-    axios.get("https://crypto-api-xyz.onrender.com/api/crypto")
+    axios.get(`${API_BASE}/api/crypto`)
       .then((res) => setCrypto(res.data))
       .catch((err) => console.error(err));
   }, []);
