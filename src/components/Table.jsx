@@ -25,7 +25,7 @@ export default function CryptoTable() {
 
   // Fetch data on mount
   useEffect(() => {
-    axios.get('http://localhost:5000/api/crypto')
+    axios.get("https://crypto-api-xyz.onrender.com/api/crypto")
       .then((res) => setRows(res.data))
       .catch((err) => console.error("Error fetching crypto data", err));
   }, []);
