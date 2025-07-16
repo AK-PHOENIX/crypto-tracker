@@ -1,1 +1,23 @@
 @import "tailwindcss";
+body{
+  color: #fff ;
+}
+.main {
+  background: url('/bg.jpg') center center no-repeat;
+  background-size: cover;
+  position: relative;
+  z-index: 0; /* background layer */
+}
+
+.main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px); /* or use filter: blur() only for image */
+  background-color: rgba(0, 0, 0, 0.637); /* Optional overlay */
+  z-index: -1;
+}
+

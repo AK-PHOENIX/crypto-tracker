@@ -22,7 +22,7 @@ export default function CryptoTable() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const API_BASE = import.meta.env.BACKEND_URL;
+  const API_BASE = import.meta.env.VITE_API_URL;
   useEffect(() => {
     axios.get(`${API_BASE}/api/coins`)
       .then((res) => setRows(res.data))
@@ -36,13 +36,20 @@ export default function CryptoTable() {
   };
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden', mt: 4 }}>
-      <TableContainer >
+    <Paper sx={{
+      width: '100%',
+      overflow: 'hidden',
+      mt: 4,
+      backgroundColor: 'transparent',
+      boxShadow: 'none',
+    }}>
+      <TableContainer sx={{ backgroundColor: 'transparent' }}>
         <Table stickyHeader>
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                <TableCell key={column.id} align={column.align || 'left'} style={{ minWidth: column.minWidth }}>
+                <TableCell  key={column.id} align={column.align || 'left'} style={{ minWidth: column.minWidth , backgroundColor: 'transparent',
+                  color: 'white' }}>
                   {column.label}
                 </TableCell>
               ))}
@@ -53,32 +60,35 @@ export default function CryptoTable() {
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((coin, index) => (
               <TableRow hover key={index}>
                 {columns.map((column) => {
-                  const value = coin[column.id];
-                  return (
-                    <TableCell key={column.id} align={column.align || 'left'}>
-                      {column.format && typeof value === 'number'
-                        ? column.format(value)
-                        : value}
-                    </TableCell>
-                  );
-                })}
+                const value = coin[column.id];
+                let textColor = 'white'; 
+                if (column.id === 'price_change_percentage_24h') {
+                  if (value < 0) textColor = 'red';
+                  else if (value > 0) textColor = 'limegreen';
+                }
+
+                return (
+                  <TableCell
+                    key={column.id}
+                    align={column.align || 'left'}
+                    style={{
+                      backgroundColor: 'transparent',
+                      color: textColor,
+                    }}
+                  >
+                    {column.format && typeof value === 'number'
+                      ? column.format(value)
+                      : value}
+                  </TableCell>
+                );
+              })}
+
               </TableRow>
             ))}
           </TableBody>
 
         </Table>
       </TableContainer>
-
-      <TablePagination
-        rowsPerPageOptions={[10, 25]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        
-      />
     </Paper>
   );
 }
