@@ -54,7 +54,7 @@ function App() {
         </table>
       </div>
     </div> */}
-    <div className="hero mx-20 text-center">
+    <div className="hero sm:mx-20 mx-4 text-center">
       <h1 className="text-4xl my-2">Cryptocurrency Prices Today By Market Cap</h1>
       <p>The global cryptocurrency market cap today is $3.74 Trillion, a -7.01% change in the last 24 hours.</p>
     <Table/>
