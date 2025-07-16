@@ -24,7 +24,7 @@ export default function CryptoTable() {
 
   const API_BASE = import.meta.env.BACKEND_URL;
   useEffect(() => {
-    axios.get(`${API_BASE}/api/crypto`)
+    axios.get(`${API_BASE}/api/coins`)
       .then((res) => setRows(res.data))
       .catch((err) => console.error("Error fetching crypto data", err));
   }, []);
