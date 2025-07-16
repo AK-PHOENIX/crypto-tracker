@@ -22,7 +22,7 @@ export default function CryptoTable() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const API_BASE = import.meta.env.VITE_API_URL;
+  const API_BASE = import.meta.env.BACKEND_URL;
   useEffect(() => {
     axios.get(`${API_BASE}/api/crypto`)
       .then((res) => setRows(res.data))
