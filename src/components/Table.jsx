@@ -9,7 +9,6 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import axios from 'axios';
 
-// Define columns you want to show
 const columns = [
   { id: 'name', label: 'Name', minWidth: 150 },
   { id: 'symbol', label: 'Symbol', minWidth: 100, align: 'center' },
@@ -24,14 +23,12 @@ export default function CryptoTable() {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const API_BASE = import.meta.env.VITE_API_URL;
-  // Fetch data on mount
   useEffect(() => {
     axios.get(`${API_BASE}/api/crypto`)
       .then((res) => setRows(res.data))
       .catch((err) => console.error("Error fetching crypto data", err));
   }, []);
 
-  // Pagination handlers
   const handleChangePage = (event, newPage) => setPage(newPage);
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
